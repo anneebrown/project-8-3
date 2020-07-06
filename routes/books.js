@@ -13,16 +13,17 @@ function asyncHandler(cb){
   }
 }
 
+
 /* GET books table. */
-router.get('/', asyncHandler(async (req, res) => {
+router.get('/books', asyncHandler(async (req, res) => {
   const books = await Book.findAll();
-  console.log(books);
-  res.render("index", books);
+  //console.log(books);
+  res.render("index", {books});
 }));
 
 /* Create a new book form. */
 router.get('/books/new', (req, res) => {
-  res.render("new-book", { book: {}, title: "New Book" });
+  res.render("new-book");
 });
 
 /* POST create book. */
@@ -41,21 +42,21 @@ router.post('/books/new', asyncHandler(async (req, res) => {
   }
 }));
 
-// /* Edit book form. */
-// router.get("/books/:id", asyncHandler(async(req, res) => {
-//   const book = await Book.findByPk(req.params.id);
-//   if(book) {
-//     res.render("books/edit", { book, title: "Edit Book" });      
-//   } else {
-//     res.sendStatus(404);
-//   }
-// }));
+/* Update book form. */
+router.get("/books/:id", asyncHandler(async(req, res) => {
+  const book = await Book.findByPk(req.params.id);
+  if(book) {
+    res.render("book-detail", { book, title: "Edit Book" });      
+  } else {
+    res.sendStatus(404);
+  }
+}));
 
 /* GET individual book. */
 router.get("/books/:id", asyncHandler(async (req, res) => {
   const book = await Book.findByPk(req.params.id);
-  if(article) {
-    res.render("books/show", { book, title: book.title });  
+  if(book) {
+    res.render("books-detail", { book });  
   } else {
     res.sendStatus(404);
   }
@@ -68,7 +69,7 @@ router.post('/books/:id', asyncHandler(async (req, res) => {
     book = await Book.findByPk(req.params.id);
     if(book) {
       await book.update(req.body);
-      res.redirect("/book_detail/" + books.id); 
+      res.redirect("/book-detail/" + books.id); 
     } else {
       res.sendStatus(404);
     }
@@ -76,7 +77,7 @@ router.post('/books/:id', asyncHandler(async (req, res) => {
     if(error.name === "SequelizeValidationError") {
       book = await Book.build(req.body);
       book.id = req.params.id;
-      res.render("book_detail", { book, errors: error.errors, title: "Edit Book" })
+      res.render("book-detail", { book, errors: error.errors, title: "Edit Book" })
     } else {
       throw error;
     }
