@@ -3,19 +3,19 @@ extends layout
 block content
 
   h1 New Book
-  form(method='post' action='/books/')
+  form(method='post' action='/books/new')
     p
       label(for='title') Title
-      input#title(name='title' type='text' value='title')
+      input#title(name='title' type='text' value='')
     p
       label(for='author') Author
-      input#author(name='author' type='text' value='author')
+      input#author(name='author' type='text' value='')
     p
       label(for='genre') Genre
-      input#genre(name='genre' type='text' value='genre')
+      input#genre(name='genre' type='text' value='')
     p
       label(for='year') Year
-      input#year(name='year' type='text' value='year')
+      input#year(name='year' type='text' value='')
     p
       input(type='submit' value='Create New Book')
     p
