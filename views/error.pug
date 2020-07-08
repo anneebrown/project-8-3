@@ -1,7 +1,21 @@
+
 extends layout
 
 block content
-  h1= "Oops, something went wrong"
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+
+  h1 Page Not Found
+  p Sorry! We could not find the page you were looking for. 
+
+  p
+    a.button(href='/books') Home
+
+
+
+//- extends layout
+
+//- block content
+//-   h1 Server Error 
+//-   p Sorry, there was an unexpected error on the server!
+//-   p= message
+//-   p= error.status
+//-   pre #{error.stack}
