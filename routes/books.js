@@ -22,12 +22,12 @@ router.get('/', asyncHandler(async (req, res) => {
 }));
 
 /* Create a new book form. */
-router.get('/books/new', (req, res) => {
+router.get('/new', (req, res) => {
   res.render("new-book");
 });
 
 /* POST create book. */
-router.post('/books/new', asyncHandler(async (req, res) => {
+router.post('/new', asyncHandler(async (req, res) => {
   let book;
   try {
     book = await Book.create(req.body);
@@ -56,13 +56,13 @@ router.get("/:id", asyncHandler(async(req, res) => {
 
 
 /* Update a book. */
-router.post('/books/:id', asyncHandler(async (req, res) => {
+router.post('/:id', asyncHandler(async (req, res) => {
   let book;
   try {
     book = await Book.findByPk(req.params.id);
     if(book) {
       await book.update(req.body);
-      res.redirect("/books/" + book.id); 
+      res.redirect('/books/' + book.id); 
     } else {
       res.sendStatus(404).render('page-not-found');
     }
