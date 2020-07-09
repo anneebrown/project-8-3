@@ -9,6 +9,8 @@ function asyncHandler(cb){
       await cb(req, res, next)
     } catch(error){
       res.status(500).send(error);
+      console.log('this error comes from the async handler')
+      res.render('error');
     }
   }
 }
@@ -50,7 +52,8 @@ router.get("/:id", asyncHandler(async(req, res) => {
   if(book) {
     res.render("book-detail", { book });      
   } else {
-    res.sendStatus(404).render('page-not-found');
+    res.sendStatus(404);
+    res.render('error');
   }
 }));
 
@@ -64,7 +67,7 @@ router.post('/:id', asyncHandler(async (req, res) => {
       await book.update(req.body);
       res.redirect('/books/' + book.id); 
     } else {
-      res.sendStatus(404).render('page-not-found');
+      res.sendStatus(404).render('error');
     }
   } catch (error) {
     if(error.name === "SequelizeValidationError") {

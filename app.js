@@ -37,7 +37,7 @@ app.use(function(err, req, res, next) {
   if(err.status === 404) {
     res.status(404).render('page-not-found');
   } else {
-    res.status(err.status || 500).render('page-not-found', {err});
+    res.status(err.status || 500).render('error', {err});
   }
 });
 
