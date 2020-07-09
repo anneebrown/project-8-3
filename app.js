@@ -36,8 +36,10 @@ app.use(function(err, req, res, next) {
   // render the error page
   if(err.status === 404) {
     res.status(404).render('page-not-found');
+    console.log('this comes from app.js line 39')
   } else {
     res.status(err.status || 500).render('error', {err});
+    console.log('this comes from app.js line 42, 500 error handler')
   }
 });
 
