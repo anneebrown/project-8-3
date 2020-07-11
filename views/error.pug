@@ -3,6 +3,8 @@ extends layout
 block content
   h1 Server Error 
   p Sorry, there was an unexpected error on the server!
+  p
+    a.button(href='/books') Home
   p= message
   p= error.status
   pre #{error.stack}
